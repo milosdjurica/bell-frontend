@@ -17,7 +17,6 @@ export default function Page() {
       const note = await storeContract.methods
         .getNote(Number(id))
         .call({ from: account });
-      console.log(note);
       setFetchedNote(note);
     } catch (error) {
       console.error("Error fetching note:", error);
@@ -28,7 +27,7 @@ export default function Page() {
     if (!note) return;
     try {
       const accounts = await web3.eth.getAccounts();
-      const account = accounts[3];
+      const account = accounts[0];
       await storeContract.methods.storeNote(note).send({ from: account });
       alert("Note stored successfully!");
     } catch (error) {
@@ -41,6 +40,7 @@ export default function Page() {
       <h1>Note App</h1>
       <div>
         <input
+          className="text-black"
           type="text"
           placeholder="Note"
           value={note}
@@ -50,6 +50,7 @@ export default function Page() {
       </div>
       <div>
         <input
+          className="text-black"
           type="text"
           placeholder="ID"
           value={id}
